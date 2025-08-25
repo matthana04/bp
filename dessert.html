@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>เมนูของหวาน</title>
+  <style>
+    body {
+      font-family: 'Tahoma', sans-serif;
+      background-color: #fff8f0;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #cc3366;
+      margin-bottom: 30px;
+    }
+
+    .dessert-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    .dessert-item {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      width: 220px;
+      text-align: center;
+      padding: 10px;
+    }
+
+    .dessert-item img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+
+    .dessert-item h3 {
+      margin: 10px 0 5px 0;
+      font-size: 16px;
+      color: #444;
+    }
+
+    .dessert-item p.price {
+      font-weight: bold;
+      color: #ff6600;
+      margin-bottom: 0;
+    }
+
+    .pagination {
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    .pagination button {
+      margin: 0 5px;
+      padding: 8px 12px;
+      border: none;
+      background: #ff6699;
+      color: white;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+
+    .pagination button.active {
+      background: #cc3366;
+    }
+
+    .pagination button:disabled {
+      background: #ddd;
+      cursor: default;
+    }
+  </style>
+</head>
+<body>
+<nav class="menu-bar">
+    <a href="index.html" class="menu-item">
+      <img src="c:\Users\USER\Downloads\home.png" alt="index">
+      <span>หน้าแรก</span>
+    </a>
+    <a href="food.html" class="menu-item">
+      <img src="c:\Users\USER\Downloads\food-service.png" alt="food">
+      <span>อาหาร</span>
+    </a>
+    <a href="dessert.html" class="menu-item">
+      <img src="c:\Users\USER\Downloads\sweets.png" alt="dessert">
+      <span>ของหวาน</span>
+    </a>
+    <a href="contact.html" class="menu-item">
+      <img src="c:\Users\USER\Downloads\contact-us.png" alt="contact">
+      <span>ติดต่อ</span>
+    </a>
+     <link rel="stylesheet" href="style.css" />
+  </nav>
+
+
+  <h1>เมนูของหวานแสนอร่อย</h1>
+  <div class="dessert-container" id="dessert-list"></div>
+  <div class="pagination" id="pagination"></div>
+
+  <script>
+    const desserts = [
+      { name: "ขนมเบื้อง", price: 35, img: "https://t1.blockdit.com/photos/2023/08/64dc908d1f2ab8a30eee89e7_800x0xcover_c3IaWqwP.jpg" },
+      { name: "บัวลอย", price: 30, img: "https://sharp-weeclub.com/wp-content/uploads/2022/11/%E0%B8%9A%E0%B8%B1%E0%B8%A7%E0%B8%A5%E0%B8%AD%E0%B8%A21-990x510-1.jpg" },
+      { name: "ข้าวเหนียวมะม่วง", price: 45, img: "https://s.isanook.com/he/0/ud/6/33617/mango-sticky-rice.jpg?ip/crop/w670h402/q80/jpg" },
+      { name: "ลอดช่อง", price: 30, img: "https://s359.kapook.com/rf/320/200/pagebuilder/d119bcaa-dc96-496f-a07d-e5e7d1c4b972.jpg" },
+      { name: "ไอศกรีมกะทิ", price: 35, img: "https://s359.kapook.com/pagebuilder/f348d4ac-f6a5-41e0-b61b-e2113b3b2f40.jpg" },
+      { name: "ทับทิมกรอบ", price: 30, img: "https://fit-d.com/uploads/food/14d40a7252744b5a797e36a04c32d25d.jpg" },
+      { name: "กล้วยบวชชี", price: 35, img: "https://img.kapook.com/u/2016/surauch/cook1/bananacoconut2.jpg" },
+      { name: "สังขยาฟักทอง", price: 30, img: "https://s359.kapook.com/pagebuilder/7bcb254b-9626-4ca3-a204-50824a5184a3.jpg" },
+      { name: "เฉาก๊วย", price: 25, img: "https://s359.kapook.com/pagebuilder/99910e94-ffb6-4561-82b9-d3b5fbbd4fc1.jpg" },
+      { name: "วุ้นกะทิ", price: 20, img: "https://s359.kapook.com/r/580/435/pagebuilder/911a7d89-83bb-4c32-9db8-1a0c57e46a96.jpg" },
+      { name: "ฟักทองเชื่อม", price: 35, img: "https://i.ytimg.com/vi/pneUiE-vmpM/maxresdefault.jpg" },
+      { name: "แตงไทยน้ำกะทิ", price: 30, img: "https://img.wongnai.com/p/1920x0/2019/08/15/73b4b0b2fa4d431f94f5de000f6c2fee.jpg" },
+      { name: "ขนมถ้วย", price: 25, img: "https://fit-d.com/image_webp/f?src=./uploads/food/09c4510f9fa99b2485c0c7344b55045b.jpg" },
+      { name: "ขนมชั้น", price: 25, img: "https://sawasdee.thaiairways.com/wp-content/uploads/2024/02/TH8-7-e1706873939817.jpg" },
+      { name: "ซาหริ่ม", price: 35, img: "https://f.ptcdn.info/967/031/000/1433126242-IMG2548-o.jpg" }
+    ];
+
+    const itemsPerPage = 5;
+    const totalPages = Math.ceil(desserts.length / itemsPerPage);
+    let currentPage = 1;
+
+    function showPage(page) {
+      const list = document.getElementById("dessert-list");
+      const pagination = document.getElementById("pagination");
+      list.innerHTML = "";
+
+      const start = (page - 1) * itemsPerPage;
+      const end = start + itemsPerPage;
+      const currentItems = desserts.slice(start, end);
+
+      currentItems.forEach(dessert => {
+        const div = document.createElement("div");
+        div.className = "dessert-item";
+        div.innerHTML = `
+          <img src="${dessert.img}" alt="${dessert.name}">
+          <h3>${dessert.name}</h3>
+          <p class="price">${dessert.price} บาท</p>
+        `;
+        list.appendChild(div);
+      });
+
+      pagination.innerHTML = "";
+      for (let i = 1; i <= totalPages; i++) {
+        const btn = document.createElement("button");
+        btn.textContent = i;
+        if (i === page) btn.classList.add("active");
+        btn.onclick = () => {
+          currentPage = i;
+          showPage(currentPage);
+        };
+        pagination.appendChild(btn);
+      }
+    }
+
+    showPage(currentPage);
+  </script>
+</body>
+</html>
